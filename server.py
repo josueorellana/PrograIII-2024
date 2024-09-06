@@ -7,6 +7,6 @@ class servidorBasico(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write("Hola Mundo".encode())
 
-server = HTTPServer(('localhost', 3000), servidorBasico)
+server = HTTPServer(('localhost', 4000), servidorBasico)
 server.serve_forever()
-print("Servidor ejecutado en el puerto 3000")
+print("Servidor ejecutado en el puerto 4000")
