@@ -12,15 +12,54 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-6">
-                <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card text-bg-dark mb-3">
                     <div class="card-header">Registro de Alumnos</div>
                     <div class="card-body">
-                        
+                        <form id="frmAlumno">
+                            <div class="row p-1">
+                                <div class="col-3 col-md-2">CODIGO </div>
+                                <div class="col-9 col-md-4">
+                                    <input type="text" class="form-control" id="txtCodigoAlumno" name="txtCodigoAlumno" required>
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="col-3 col-md-2">NOMBRE </div>
+                                <div class="col-9 col-md-6">
+                                    <input type="text" class="form-control" id="txtNombreAlumno" name="txtNombreAlumno" required>
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="col-3 col-md-2">DIRECCION</div>
+                                <div class="col-9 col-md-10">
+                                    <input type="text" class="form-control" id="txtDireccionAlumno" name="txtDireccionAlumno" required>
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="col-3 col-md-2">TELEFONO </div>
+                                <div class="col-9 col-md-4">
+                                    <input type="text" class="form-control" id="txtTelefonoAlumno" name="txtTelefonoAlumno" required>
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="col-3 col-md-2">CORREO </div>
+                                <div class="col-9 col-md-6">
+                                    <input type="email" class="form-control" id="txtCorreoAlumno" name="txtCorreoAlumno" required>
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="col-12 col-md-6 text-center d-grid gap-2">
+                                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                                </div>
+                                <div class="col-12 col-md-6 text-center d-grid gap-2">
+                                    <button type="reset" class="btn btn-outline-warning">Nuevo</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card text-bg-dark mb-3">
                     <div class="card-header">Consulta de Alumnos</div>
                     <div class="card-body">
                         
@@ -30,5 +69,37 @@
         </div>
     </div>
 </body>
-
+<script>
+    document.addEventListener('DOMContentLoaded', event=> {
+        document.querySelector('#frmAlumno').addEventListener('submit', (e)=>{
+            e.preventDefault();
+            
+            let datos = {
+                codigo : txtCodigoAlumno.value,
+                nombre : txtNombreAlumno.value,
+                direccion : txtDireccionAlumno.value,
+                telefono : txtTelefonoAlumno.value,
+                correo : txtCorreoAlumno.value
+            };
+            fetch('/',{
+                method : 'POST',
+                body : JSON.stringify(datos)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if( data.msg==='ok' ){
+                    limpiarDatosAlumnos();
+                }
+            })
+            .catch(err => console.log(err));
+        });
+    });
+    function limpiarDatosAlumnos(){
+        txtCodigoAlumno.value = '';
+        txtNombreAlumno.value = '';
+        txtDireccionAlumno.value = '';
+        txtTelefonoAlumno.value = '';
+        txtCorreoAlumno.value = '';
+    }
+</script>
 </html>
