@@ -8,7 +8,11 @@ class servidorBasico(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
             self.path = '/index.html'
-        return SimpleHTTPRequestHandler.do_GET(self)
+            return SimpleHTTPRequestHandler.do_GET(self)
+        elif self.path == '/alumnos':
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(json.dumps(crudAlumno.consultar()).encode('utf-8'))
     def do_POST(self):
         longitud = int(self.headers['Content-Length'])
         body = self.rfile.read(longitud)

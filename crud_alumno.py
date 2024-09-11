@@ -2,8 +2,9 @@ import crud_academico
 db = crud_academico.crud()
 
 class crud_alumno:
-    def consultar(self, buscar):
-        return db.consultar("SELECT * FROM alumnos WHERE nombre like '%" + buscar["buscar"] + "%'")
+    def consultar(self):
+        #return db.consultar("SELECT * FROM alumnos WHERE nombre like '%" + buscar["buscar"] + "%'")
+        return db.consultar("SELECT * FROM alumnos")
     
     def administrar(self, datos):
         sql = """

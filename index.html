@@ -62,7 +62,18 @@
                 <div class="card text-bg-dark mb-3">
                     <div class="card-header">Consulta de Alumnos</div>
                     <div class="card-body">
-                        
+                        <table class="table table-hover" id="tblAlumnos">
+                            <thead>
+                                <tr>
+                                    <th>CODIGO</th>
+                                    <th>NOMBRE</th>
+                                    <th>DIRECCION</th>
+                                    <th>TEL</th>
+                                    <th>CORREO</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -71,6 +82,7 @@
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', event=> {
+        consultarAlumnos();
         document.querySelector('#frmAlumno').addEventListener('submit', (e)=>{
             e.preventDefault();
             
@@ -88,12 +100,36 @@
             .then(res => res.json())
             .then(data => {
                 if( data.msg==='ok' ){
+                    consultarAlumnos();
                     limpiarDatosAlumnos();
                 }
             })
             .catch(err => console.log(err));
         });
     });
+    function consultarAlumnos(){
+        fetch('/alumnos')
+        .then(res => res.json())
+        .then(data => {
+            mostrarFilasAlumnos(data);
+        })
+        .catch(err => console.log(err));
+    }
+    function mostrarFilasAlumnos(data = []){
+        let filas = '';
+        data.forEach(alumno => {
+            filas += `
+                <tr>
+                    <td>${alumno.codigo}</td>
+                    <td>${alumno.nombre}</td>
+                    <td>${alumno.direccion}</td>
+                    <td>${alumno.telefono}</td>
+                    <td>${alumno.email}</td>
+                </tr>
+            `;
+        });
+        document.querySelector('#tblAlumnos > tbody').innerHTML = filas;
+    }
     function limpiarDatosAlumnos(){
         txtCodigoAlumno.value = '';
         txtNombreAlumno.value = '';
