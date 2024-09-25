@@ -1,4 +1,5 @@
 from urllib import parse
+from urllib.parse import urlparse, parse_qs
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import json
 import crud_alumno
@@ -6,10 +7,19 @@ import crud_alumno
 crudAlumno = crud_alumno.crud_alumno()
 class servidorBasico(SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/':
+        url_parseada = urlparse(self.path)
+        path = url_parseada.path
+        parametros = parse_qs(url_parseada.query)
+
+        if path == '/':
             self.path = '/index.html'
             return SimpleHTTPRequestHandler.do_GET(self)
-        elif self.path == '/alumnos':
+        
+        elif path == '/vista':
+            self.path = '/modulos/' + parametros['form'][0] + '.html'
+            return SimpleHTTPRequestHandler.do_GET(self)
+
+        elif path == '/alumnos':
             self.send_response(200)
             self.end_headers()
             self.wfile.write(json.dumps(crudAlumno.consultar()).encode('utf-8'))

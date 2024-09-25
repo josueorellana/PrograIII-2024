@@ -1,0 +1,97 @@
+<form id="frmBusquedaAlumno">
+    <div class="card text-bg-dark mb-3">
+        <div class="card-header">
+            <div class="d-flex">
+                Consulta de Alumnos
+                <div class="ms-auto">
+                    <button type="button" data-form="busqueda_alumnos" class="btn-close btn-close-white" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Barra de búsqueda -->
+            <div class="mb-3">
+                <input type="text" class="form-control" id="txtBusqueda" placeholder="Buscar por código, nombre o correo">
+            </div>
+            <table class="table table-hover" id="tblAlumnos">
+                <thead>
+                    <tr>
+                        <th>CODIGO</th>
+                        <th>NOMBRE</th>
+                        <th>DIRECCION</th>
+                        <th>TEL</th>
+                        <th>CORREO</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+<script>
+    // Función para eliminar alumno
+    function eliminarAlumno(idAlumno){
+        if(confirm("¿Desea eliminar este registro?")){
+            let datos = {
+                accion : "eliminar",
+                idAlumno,
+            };
+            enviarDatosAlumno(datos);
+        }
+    }
+
+    // Función para consultar alumnos
+    function consultarAlumnos(){
+        fetch('/alumnos')
+        .then(res => res.json())
+        .then(data => {
+            mostrarFilasAlumnos(data);
+            activarFiltroBusqueda(data); // Activar filtro una vez se obtienen los datos
+        })
+        .catch(err => console.log(err));
+    }
+
+    // Función para mostrar filas de alumnos en la tabla
+    function mostrarFilasAlumnos(data = []){
+        let filas = '';
+        data.forEach(alumno => {
+            filas += `
+                <tr onClick='modificarAlumno(${JSON.stringify(alumno)})'>
+                    <td>${alumno.codigo}</td>
+                    <td>${alumno.nombre}</td>
+                    <td>${alumno.direccion}</td>
+                    <td>${alumno.telefono}</td>
+                    <td>${alumno.email}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-danger" 
+                            onClick='eliminarAlumno(${alumno.idAlumno})'>DEL
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+        document.querySelector('#tblAlumnos > tbody').innerHTML = filas;
+    }
+
+    // Función para activar el filtro de búsqueda
+    function activarFiltroBusqueda(data){
+        const inputBusqueda = document.getElementById('txtBusqueda');
+        
+        inputBusqueda.addEventListener('input', function() {
+            const valorBusqueda = inputBusqueda.value.toLowerCase();
+            const datosFiltrados = data.filter(alumno => {
+                return (
+                    alumno.codigo.toLowerCase().includes(valorBusqueda) ||
+                    alumno.nombre.toLowerCase().includes(valorBusqueda) ||
+                    alumno.email.toLowerCase().includes(valorBusqueda)
+                );
+            });
+            mostrarFilasAlumnos(datosFiltrados);
+        });
+    }
+
+    // Llamar a consultarAlumnos al cargar la página
+    consultarAlumnos();
+</script>
