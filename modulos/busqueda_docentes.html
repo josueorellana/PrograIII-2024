@@ -1,15 +1,15 @@
-<form id="frmBusquedaAlumno">
+<form id="frmBusquedaDocente">
     <div class="card text-bg-dark mb-3">
         <div class="card-header">
             <div class="d-flex">
-                Consulta de Alumnos
+                Consulta de Docentes
                 <div class="ms-auto">
-                    <button type="button" data-form="busqueda_alumnos" class="btn-close btn-close-white" aria-label="Close"></button>
+                    <button type="button" data-form="busqueda_docentes" class="btn-close btn-close-white" aria-label="Close"></button>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-hover" id="tblAlumnos">
+            <table class="table table-hover" id="tblDocentes">
                 <thead>
                     <tr>
                         <th>CODIGO</th>
@@ -17,6 +17,7 @@
                         <th>DIRECCION</th>
                         <th>TEL</th>
                         <th>CORREO</th>
+                        <th>DUI</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -27,44 +28,45 @@
 </form>
 <script>
     /*
-    Tarea: Realizar la busqueda interactiva de alumnos, por codigo, nombre y email.
+    Tarea: Realizar la busqueda interactiva de docentes, por codigo, nombre y email.
     */
-    function eliminarAlumno(idAlumno){
+    function eliminarDocente(idDocente){
         if(confirm("¿Desea eliminar este registro?")){
             let datos = {
                 accion : "eliminar",
-                idAlumno,
+                idDocente,
             };
-            enviarDatosAlumno(datos);
+            enviarDatosDocente(datos);
         }
     }
-    function consultarAlumnos(){
-        fetch('/alumnos')
+    function consultarDocentes(){
+        fetch('/docentes')
         .then(res => res.json())
         .then(data => {
-            mostrarFilasAlumnos(data);
+            mostrarFilasDocentes(data);
         })
         .catch(err => console.log(err));
     }
-    function mostrarFilasAlumnos(data = []){
+    function mostrarFilasDocentes(data = []){
         let filas = '';
-        data.forEach(alumno => {
+        data.forEach(docente => {
             filas += `
-                <tr onClick='modificarAlumno(${JSON.stringify(alumno)})'>
-                    <td>${alumno.codigo}</td>
-                    <td>${alumno.nombre}</td>
-                    <td>${alumno.direccion}</td>
-                    <td>${alumno.telefono}</td>
-                    <td>${alumno.email}</td>
+                <tr onClick='modificarDocente(${JSON.stringify(docente)})'>
+                    <td>${docente.codigo}</td>
+                    <td>${docente.nombre}</td>
+                    <td>${docente.direccion}</td>
+                    <td>${docente.telefono}</td>
+                    <td>${docente.email}</td>
+                    <td>${docente.dui}</td>
                     <td>
                         <button type="button" class="btn btn-outline-danger" 
-                            onClick='eliminarAlumno(${alumno.idAlumno})'>DEL
+                            onClick='eliminarDocente(${docente.idDocente})'>DEL
                         </button>
                     </td>
                 </tr>
             `;
         });
-        document.querySelector('#tblAlumnos > tbody').innerHTML = filas;
+        document.querySelector('#tblDocentes > tbody').innerHTML = filas;
     }
-    consultarAlumnos();
+    consultarDocentes();
 </script>
