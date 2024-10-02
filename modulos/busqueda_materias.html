@@ -9,6 +9,9 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="mb-3">
+                <input type="text" id="searchInputMateria" class="form-control" placeholder="Buscar Materia" oninput="filtrarMaterias()">
+            </div>
             <table class="table table-hover" id="tblMaterias">
                 <thead>
                     <tr>
@@ -23,28 +26,31 @@
         </div>
     </div>
 </form>
+
 <script>
-    /*
-    Tarea: Realizar la busqueda interactiva de materias, por codigo, nombre y email.
-    */
-    function eliminarMateria(idMateria){
-        if(confirm("¿Desea eliminar este registro?")){
+    let materiasData = [];
+
+    function eliminarMateria(idMateria) {
+        if (confirm("¿Desea eliminar este registro?")) {
             let datos = {
-                accion : "eliminar",
+                accion: "eliminar",
                 idMateria,
             };
             enviarDatosMateria(datos);
         }
     }
-    function consultarMaterias(){
+
+    function consultarMaterias() {
         fetch('/materias')
-        .then(res => res.json())
-        .then(data => {
-            mostrarFilasMaterias(data);
-        })
-        .catch(err => console.log(err));
+            .then(res => res.json())
+            .then(data => {
+                materiasData = data;
+                mostrarFilasMaterias(materiasData);
+            })
+            .catch(err => console.log(err));
     }
-    function mostrarFilasMaterias(data = []){
+
+    function mostrarFilasMaterias(data = []) {
         let filas = '';
         data.forEach(materia => {
             filas += `
@@ -62,5 +68,15 @@
         });
         document.querySelector('#tblMaterias > tbody').innerHTML = filas;
     }
+
+    function filtrarMaterias() {
+        const searchTerm = document.getElementById('searchInputMateria').value.toLowerCase();
+        const filteredData = materiasData.filter(materia => 
+            materia.codigo.toLowerCase().includes(searchTerm) || 
+            materia.nombre.toLowerCase().includes(searchTerm)
+        );
+        mostrarFilasMaterias(filteredData);
+    }
+
     consultarMaterias();
 </script>

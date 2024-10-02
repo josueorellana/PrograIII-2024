@@ -9,6 +9,9 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="mb-3">
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar Alumno" oninput="filtrarAlumnos()">
+            </div>
             <table class="table table-hover" id="tblAlumnos">
                 <thead>
                     <tr>
@@ -25,28 +28,31 @@
         </div>
     </div>
 </form>
+
 <script>
-    /*
-    Tarea: Realizar la busqueda interactiva de alumnos, por codigo, nombre y email.
-    */
-    function eliminarAlumno(idAlumno){
-        if(confirm("¿Desea eliminar este registro?")){
+    let alumnosData = [];
+
+    function eliminarAlumno(idAlumno) {
+        if (confirm("¿Desea eliminar este registro?")) {
             let datos = {
-                accion : "eliminar",
+                accion: "eliminar",
                 idAlumno,
             };
             enviarDatosAlumno(datos);
         }
     }
-    function consultarAlumnos(){
+
+    function consultarAlumnos() {
         fetch('/alumnos')
-        .then(res => res.json())
-        .then(data => {
-            mostrarFilasAlumnos(data);
-        })
-        .catch(err => console.log(err));
+            .then(res => res.json())
+            .then(data => {
+                alumnosData = data;
+                mostrarFilasAlumnos(alumnosData);
+            })
+            .catch(err => console.log(err));
     }
-    function mostrarFilasAlumnos(data = []){
+
+    function mostrarFilasAlumnos(data = []) {
         let filas = '';
         data.forEach(alumno => {
             filas += `
@@ -66,5 +72,16 @@
         });
         document.querySelector('#tblAlumnos > tbody').innerHTML = filas;
     }
+
+    function filtrarAlumnos() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const filteredData = alumnosData.filter(alumno => 
+            alumno.codigo.toLowerCase().includes(searchTerm) || 
+            alumno.nombre.toLowerCase().includes(searchTerm) || 
+            alumno.email.toLowerCase().includes(searchTerm)
+        );
+        mostrarFilasAlumnos(filteredData);
+    }
+
     consultarAlumnos();
 </script>
