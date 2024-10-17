@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <script>
+        async function iniciarSesion(event) {
+            event.preventDefault(); 
+            const usuario = document.getElementById('usuario').value;
+            const clave = document.getElementById('clave').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `usuario=${encodeURIComponent(usuario)}&clave=${encodeURIComponent(clave)}`
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success) {
+                    window.location.href = '/registro_usuario.html'; 
+                } else {
+                    alert('Credenciales incorrectas');
+                }
+            } else {
+                alert('Error en el servidor');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Iniciar Sesión</h2>
+    <form onsubmit="iniciarSesion(event)">
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario" required>
+        <br>
+        <label for="clave">Clave:</label>
+        <input type="password" id="clave" name="clave" required>
+        <br>
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+</body>
+</html>
