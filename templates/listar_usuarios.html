@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            font-size: 14px;
+        }
+
+        button.edit {
+            background-color: #28a745; /* Verde para editar */
+        }
+
+        button.edit:hover {
+            background-color: #218838;
+        }
+
+        button.delete {
+            background-color: #dc3545; /* Rojo para eliminar */
+        }
+
+        button.delete:hover {
+            background-color: #c82333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script>
+        function eliminarUsuario(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+                fetch(`/eliminar_usuario?id=${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+
+        function editarUsuario(id) {
+            window.location.href = `/editar_usuario?id=${id}`;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Usuarios</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="usuarios">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function cargarUsuarios() {
+            fetch('/listar_usuarios')
+            .then(response => response.json())
+            .then(data => {
+                const usuariosTable = document.getElementById('usuarios');
+                usuariosTable.innerHTML = '';
+                data.forEach(usuario => {
+                    usuariosTable.innerHTML += `
+                        <tr>
+                            <td>${usuario.usuario}</td>
+                            <td>${usuario.nombre}</td>
+                            <td>${usuario.direccion}</td>
+                            <td>${usuario.telefono}</td>
+                            <td>
+                                <button class="edit" onclick="editarUsuario(${usuario.IdUsuario})">Editar</button>
+                                <button class="delete" onclick="eliminarUsuario(${usuario.IdUsuario})">Eliminar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        window.onload = cargarUsuarios;
+    </script>
+</body>
+</html>
