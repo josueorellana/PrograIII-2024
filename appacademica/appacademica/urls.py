@@ -16,7 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from academica.views import hola_mundo, saludo, edad, index, vista, consultar_alumnos, guardar_alumno, consultar_docentes, guardar_docente, consultar_materias, guardar_materia
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('saludo/', hola_mundo),
+    path('saludo/<str:nombre>/', saludo),
+    path('edad/<int:edad>/', edad),
+    path('', index),
+    path('vista/<str:form>/', vista),
+    path('consultar_alumnos/', consultar_alumnos),
+    path('guardar_alumno/', guardar_alumno),
+    path('consultar_docentes/', consultar_docentes),
+    path('guardar_docente/', guardar_docente),
+    path('consultar_materias/', consultar_materias),
+    path('guardar_materia/', guardar_materia),
 ]
