@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playas - Sivar Tours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #070020;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #ffffff;
+        }
+
+        .subtema {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+        /*Encabezado logo*/
+        header {
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            padding: 10px 20px;
+            background-color: transparent;
+        }
+
+        header img.header-logo {
+            height: 50px;
+            max-width: 150px;
+            margin-right: 30px;
+        }
+
+
+        .content-container {
+            margin-top: 30px;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .description {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+
+        /* botón */
+        header .btn {
+            margin-left: auto;
+            padding: 10px 20px;
+            margin-top: 30px;
+            font-size: 1em;
+            color: #000000;
+            background-color: rgb(207, 240, 23);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: rgb(32, 216, 176);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/playas/logosivar.jpg') }}" class="header-logo">
+        <a href="{{ url_for('menu') }}" class="btn">Volver al menú principal</a>
+
+    </header>
+
+    <h1>Playas</h1>
+    <p class="subtema">Bienvenido a la sección de Playas</p>
+
+    <!-- Contenedor  -->
+    <div class="content-container">
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/playas/playa1.jpg') }}" alt="Playa 1">
+            </div>
+            <p class="description">Una larga planicie, arena blanca y variadas mareas es solo una muestra de lo que te espera al visitar esta playa. Es un lugar idóneo para darte un baño en sus refrescantes aguas, surfear o practicar un deporte playero.
+
+                Esta playa es parte del Sitio Ramsar de la Bahía de Jiquilisco en Usulután y ofrece a los turistas un clima tropical durante todo el año, lo que permite que puedas disfrutar de sus aguas a una temperatura ideal para relajarte.
+                
+                Es un lugar ideal para jugar fútbol, practicar vóleibol, hacer jogging, nadar, realizar pesca artesanal, dar un paseo en lancha y disfrutar de sus hermosos paisajes..</p>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/playas/playa2.jpg') }}" alt="Playa 2">
+            </div>
+            <p class="description">Una playa de arena gris, poco concurrida, con un colash con todo lo que buscas en una playa olas excelentes para surfear, vegetación con acantilados, playas planas y extensas, suoer recomendada. Es una pequeña playa, bastante bonita y limpia..</p>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/playas/playa3.jpg') }}" alt="Playa 3">
+            </div>
+            <p class="description">La Playa El Majahual es una de las playas más famosas y también de las más visitadas de  El Salvador. Está situada en el departamento de La Libertad a aproximadamente 34 kilómetros de San  Salvador.
+
+                Posee un oleaje amigable que permite a sus visitantes nadar y disfrutar de un baño en sus cálidas aguas, mientras que algunos de sus habitantes practican la pesca artesanal..</p>
+        </div>
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/playas/playa4.jpg') }}" alt="Playa 3">
+            </div>
+            <p class="description">Posee arena volcánica y el desagüe del río Grande de La Libertad, el cual es conocido como La Bocana del Tunco. Si eres amante del Surf, esta playa es ideal para practicarlo, pues se caracteriza por poseer oleaje alto.</p>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/playas/playa5.jpg') }}" alt="Playa 3">
+            </div>
+            <p class="description">Los Cóbanos es una pequeña comunidad de pescadores en la costa del occidental departamento de Sonsonate, ubicada a 11 kilómetros al oriente del municipio y Puerto de Acajutla.
+
+                En sus alrededores hay varias playas paradisiacas, que por sus arenas color miel, su composición coralina, agua mansa, y las formaciones rocosas que sobresalen en toda la costa, constituyen un lugar verdaderamente único en El Salvador.
+                
+                El área general de Los Cóbanos es una zona de 264 kilómetros cuadrados de ecosistema marino bajo protección ambiental, debido a su riqueza y diversidad natural..</p>
+        </div>
+    </div>
+
+
+</body>
+</html>

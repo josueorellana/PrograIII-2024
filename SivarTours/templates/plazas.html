@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plazas - Sivar Tours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #070020;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #ffffff;
+        }
+
+        .subtema {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+          /*Encabezado logo*/
+          header {
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            padding: 10px 20px;
+            background-color: transparent;
+        }
+
+        header img.header-logo {
+            height: 50px;
+            max-width: 150px;
+            margin-right: 30px;
+        }
+        .content-container {
+            margin-top: 30px;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .description {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+
+        /* botón */
+        header .btn {
+            margin-left: auto;
+            padding: 10px 20px;
+            margin-top: 30px;
+            font-size: 1em;
+            color: #000000;
+            background-color: rgb(207, 240, 23);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: rgb(32, 216, 176);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/plazas/logosivar.jpg') }}" class="header-logo">
+        <a href="{{ url_for('menu') }}" class="btn">Volver al menú principal</a>
+
+    </header>
+
+    <h1>Plazas</h1>
+    <p class="subtema">Bienvenido a la sección de Plazas</p>
+
+    <!-- Contenedor  -->
+    <div class="content-container">
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/plazas/plaza1.jpeg') }}" alt="Plaza 1">
+            </div>
+            <p class="description">La Plaza Mayor es el corazón de la ciudad, rodeada de arquitectura colonial y una vibrante vida social.</p>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/plazas/plaza2.jpg') }}" alt="Plaza 2">
+            </div>
+            <p class="description">Esta plaza es ideal para pasear, relajarse o disfrutar de las festividades que se celebran a lo largo del año.</p>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/plazas/plaza3.jpg') }}" alt="Plaza 3">
+            </div>
+            <p class="description">En esta plaza encontrarás una gran cantidad de monumentos históricos y espacios verdes para disfrutar en familia.</p>
+        </div>
+    </div>
+
+</body>
+</html>

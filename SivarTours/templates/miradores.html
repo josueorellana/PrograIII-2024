@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miradores - Sivar Tours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #070020;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #ffffff;
+        }
+
+        .subtema {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+         /*Encabezado logo*/
+         header {
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            padding: 10px 20px;
+            background-color: transparent;
+        }
+
+        header img.header-logo {
+            height: 50px;
+            max-width: 150px;
+            margin-right: 30px;
+        }
+
+        .content-container {
+            margin-top: 30px;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .description {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+
+        /* botón */
+        .btn {
+            margin-left: auto;
+            padding: 10px 20px;
+            margin-top: 30px;
+            font-size: 1em;
+            color: #000000;
+            background-color: rgb(207, 240, 23);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: rgb(32, 216, 176);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/miradores/logosivar.jpg') }}" class="header-logo">
+        <a href="{{ url_for('menu') }}" class="btn">Volver al menú principal</a>
+
+    </header>
+
+    <h1>Miradores</h1>
+    <p class="subtema">Bienvenido a la sección de Miradores</p>
+
+    <!-- Contenedor  -->
+    <div class="content-container">
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/miradores/mirador1.jpg') }}" alt="Mirador 1">
+            </div>
+            <p class="description">Este mirador ofrece vistas panorámicas del paisaje circundante, ideal para los amantes de la fotografía y la naturaleza.</p>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/miradores/mirador2.jpg') }}" alt="Mirador 2">
+            </div>
+            <p class="description">Un lugar tranquilo para relajarte y disfrutar de las vistas al atardecer, rodeado de flora y fauna autóctona.</p>
+            <a href="https://www.google.com/maps/place/Finca+Rauda/@13.5045587,-88.488637,17z/data=!3m1!4b1!4m6!3m5!1s0x8f7b4b1f90b7980b:0x886aa842752a7e7f!8m2!3d13.5045587!4d-88.4860567!16s%2Fg%2F11s5xxhsxc?entry=ttu&g_ep=EgoyMDI0MTEyNC4xIKXMDSoASAFQAw%3D%3D" target="_blank" class="map-btn">Ver en Maps</a>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/miradores/mirador3.jpg') }}" alt="Mirador 3">
+            </div>
+            <p class="description">Aquí podrás apreciar el amanecer mientras escuchas los sonidos de la naturaleza en su estado más puro.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

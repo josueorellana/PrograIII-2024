@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sivar Tours</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1a0431;
+            background-image: url("{{ url_for('static', filename='images/fondomenu.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #000;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            width: 150px;
+            padding: 20px;
+            background-color: #00a3ff;
+            color: #fff;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0088cc;
+        }
+
+        .button img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .separator {
+            width: 90%;
+            height: 1px;
+            background-color: #333;
+            margin: 20px auto;
+        }
+
+        .centered-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 80%;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="centered-box">
+        <h1>SIVAR TOURS</h1>
+        <p class="subtitle">Turismo en El Salvador</p>
+
+        <div class="button-container">
+            <a href="/miradores" class="button"><img src="{{ url_for('static', filename='images/miradores.jpg') }}" alt="Miradores"> Miradores</a>
+            <a href="/playas" class="button"><img src="{{ url_for('static', filename='images/playas.jpg') }}" alt="Playas"> Playas</a>
+            <a href="/balnearios" class="button"><img src="{{ url_for('static', filename='images/balnearios.jpg') }}" alt="Balnearios"> Balnearios</a>
+        </div>
+        <div class="button-container">
+            <a href="/senderismo" class="button"><img src="{{ url_for('static', filename='images/senderismo.jpg') }}" alt="Senderismo"> Senderismo</a>
+            <a href="/plazas" class="button"><img src="{{ url_for('static', filename='images/plazas.jpg') }}" alt="Plazas"> Plazas</a>
+        </div>
+        
+        <div class="separator"></div>
+        
+        <div class="button-container">
+            <a href="/hoteles" class="button"><img src="{{ url_for('static', filename='images/hoteles.jpg') }}" alt="Hoteles"> Hoteles</a>
+            <a href="/restaurantes" class="button"><img src="{{ url_for('static', filename='images/restaurantes.jpg') }}" alt="Restaurantes"> Restaurantes</a>
+            <a href="/comida" class="button"><img src="{{ url_for('static', filename='images/centrocomercial.jpg') }}" alt="Comida Tipica"> Centros Comerciales</a>
+        </div>
+        
+        <div class="separator"></div>
+        
+        <div class="button-container">
+            <a href="/transporte" class="button"><img src="{{ url_for('static', filename='images/contrato.jpg') }}" alt="Alquilar Transporte"> Alquilar Transporte</a>
+            <a href="/personas" class="button"><img src="{{ url_for('static', filename='images/personas.jpg') }}" alt="Registrar Persona"> Registrar Persona</a>
+            <a href="{{ url_for('chatbot') }}" class="button"><img src="{{ url_for('static', filename='images/Sesion.jpg') }}" alt="chat_bot"> Chat bot</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Transporte - Sivar Tours</title>
+    <style>
+        /* Estilos para la página y formulario */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        button, .btn-cancel {
+            width: 48%; /* Para que los botones ocupen el 48% del espacio cada uno */
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none; /* Para quitar subrayado en el enlace */
+        }
+        button[type="submit"] {
+            background-color: #28a745;
+        }
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .btn-cancel {
+            background-color: #dc3545;
+            margin-left: 5%; /* Agrega espacio a la izquierda */
+        }
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Editar Registro de Transporte</h1>
+
+    <form action="{{ url_for('edit_transporte', id=registro['id']) }}" method="post">
+        <label for="guia">Guía</label>
+        <input type="text" name="guia" value="{{ registro['guia'] }}" required>
+
+        <label for="telefono">Teléfono</label>
+        <input type="text" name="telefono" value="{{ registro['telefono'] }}" required>
+
+        <label for="personas">Personas</label>
+        <input type="text" name="personas" value="{{ registro['personas'] }}" required>
+
+        <label for="destino">Destino</label>
+        <input type="text" name="destino" value="{{ registro['destino'] }}" required>
+
+        <label for="tiempo">Tiempo</label>
+        <input type="text" name="tiempo" value="{{ registro['tiempo'] }}" required>
+
+        <!-- Contenedor de los botones -->
+        <div class="button-container">
+            <button type="submit">Actualizar</button>
+            <a href="{{ url_for('transporte') }}" class="btn-cancel">Cancelar</a>
+        </div>
+    </form>
+
+</body>
+</html>

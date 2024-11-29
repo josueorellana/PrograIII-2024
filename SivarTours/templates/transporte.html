@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transporte - Sivar Tours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            background-image: url("{{ url_for('static', filename='images/alquiler1.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .centered-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin: 0 auto;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        button, input[type="submit"] {
+            padding: 8px 12px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+</head>
+<body>
+    
+    <div class="centered-box">
+        <h1>Registros de Transporte</h1>
+
+        <form action="/transporte/search" method="post">
+            <input type="text" name="keyword" placeholder="Buscar por Guía o Destino" required>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <table>
+            <tr>
+                <th>Guía</th>
+                <th>Teléfono</th>
+                <th>Personas</th>
+                <th>Destino</th>
+                <th>Tiempo</th>
+                <th>Acciones</th>
+            </tr>
+            {% for registro in registros %}
+            <tr>
+                <td>{{ registro.guia }}</td>
+                <td>{{ registro.telefono }}</td>
+                <td>{{ registro.personas }}</td>
+                <td>{{ registro.destino }}</td>
+                <td>{{ registro.tiempo }}</td>
+                <td>
+                    <a href="{{ url_for('edit_transporte', id=registro.id) }}">Editar</a> |
+                    <a href="#" onclick="confirmDelete('{{ registro.id }}')">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Agregar Nuevo Registro</h2>
+        <form id="addForm">
+            <input type="text" name="guia" placeholder="Guía" required>
+            <input type="text" name="telefono" placeholder="Teléfono" required>
+            <input type="text" name="personas" placeholder="Personas" required>
+            <input type="text" name="destino" placeholder="Destino" required>
+            <input type="text" name="tiempo" placeholder="Tiempo" required>
+            <input type="submit" value="Agregar">
+        </form>
+
+        <a href="{{ url_for('menu') }}" class="btn">Volver al menú principal</a>
+    </div>
+
+    <script>
+        document.getElementById('addForm').onsubmit = function(event) {
+            event.preventDefault();
+
+             // validacion  de los campos
+             const guia = this.guia.value;
+            const telefono = this.telefono.value;
+            const personas = this.personas.value;
+
+            // Validación telefono
+            const telefonoRegex = /^\d{8}$/;
+            if (!telefonoRegex.test(telefono)) {
+                alertify.notify('El campo telefono debe contener 8 digitos numéricos.', 'error', 5);
+                return;
+            }
+
+            // Validación personas
+            if (isNaN(personas) || personas < 1 || personas > 999) {
+                alertify.notify('La cantidad de personas debe ser un numero entre 1 y 999.', 'error', 5);
+                return;
+            }
+
+            fetch('/transporte/add', {
+                method: 'POST',
+                body: new URLSearchParams(new FormData(this))
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alertify.notify('Datos enviados correctamente', 'success', 5);
+                    document.getElementById('addForm').reset(); 
+                } else {
+                    alertify.notify('Error al enviar los datos.', 'error', 5);
+                }
+            })
+            .catch(error => {
+                alertify.notify('Error al enviar los datos.', 'error', 5);
+            });
+        };
+
+        // Mensaje de eliminacion
+        function confirmDelete(id) {
+            alertify.confirm(
+                'Eliminar registro',
+                '¿Estás seguro de que deseas eliminar este registro?',
+                function() {
+                    fetch(`/transporte/delete/${id}`, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alertify.notify('Datos eliminados con éxito', 'success', 5);
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 5000);
+                        } else {
+                            alertify.notify('Error al eliminar los datos.', 'error', 5);
+                        }
+                    })
+                    .catch(error => {
+                        alertify.notify('Error al eliminar los datos.', 'error', 5);
+                    });
+                },
+                function() {
+                    alertify.error('Eliminación cancelada');
+                }
+            );
+        }
+    </script>
+
+</body>
+</html>

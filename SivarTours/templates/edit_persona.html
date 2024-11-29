@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Registro de Personas - Sivar Tours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        button, .btn-cancel {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        button[type="submit"] {
+            background-color: #28a745;
+        }
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .btn-cancel {
+            background-color: #dc3545;
+            margin-left: 5%;
+        }
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Editar Registro de Personas</h1>
+
+    <form action="{{ url_for('edit_persona', id=persona['id']) }}" method="post">
+        <label for="nombres">Nombres</label>
+        <input type="text" name="nombres" value="{{ persona['nombres'] }}" required>
+
+        <label for="apellidos">Apellidos</label>
+        <input type="text" name="apellidos" value="{{ persona['apellidos'] }}" required>
+
+        <label for="edad">Edad</label>
+        <input type="text" name="edad" value="{{ persona['edad'] }}" required>
+
+        <label for="fecha_de_nacimiento">Fecha de Nacimiento</label>
+        <input type="text" name="fecha_de_nacimiento" value="{{ persona['fecha_de_nacimiento'] }}" required>
+
+        <label for="genero">Género</label>
+        <select name="genero" required>
+            <option value="Masculino" {% if persona['genero'] == 'Masculino' %}selected{% endif %}>Masculino</option>
+            <option value="Femenino" {% if persona['genero'] == 'Femenino' %}selected{% endif %}>Femenino</option>
+        </select>
+
+        <div class="button-container">
+            <button type="submit">Actualizar</button>
+            <a href="{{ url_for('personas') }}" class="btn-cancel">Cancelar</a>
+        </div>
+    </form>
+
+</body>
+</html>

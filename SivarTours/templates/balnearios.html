@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balnearios - Sivar Tours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #070020;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #ffffff;
+        }
+
+        .subtema {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+        /*Encabezado logo*/
+        header {
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            padding: 10px 20px;
+            background-color: transparent;
+        }
+
+        header img.header-logo {
+            height: 50px;
+            max-width: 150px;
+            margin-right: 30px;
+        }
+
+        .content-container {
+            margin-top: 30px;
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .description {
+            font-size: 1em;
+            margin-top: 10px;
+            color: #ffffff;
+        }
+
+        /*botón */
+        header .btn {
+            margin-left: auto;
+            padding: 10px 20px;
+            margin-top: 30px;
+            font-size: 1em;
+            color: #000000;
+            background-color: rgb(207, 240, 23);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: rgb(32, 216, 176);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/balnearios/logosivar.jpg') }}" class="header-logo">
+        <a href="{{ url_for('menu') }}" class="btn">Volver al menú principal</a>
+
+    </header>
+
+    <h1>Balnearios</h1>
+    <p class="subtema">Bienvenido a la sección de Balnearios</p>
+
+    <!-- Contenedor  -->
+    <div class="content-container">
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/balnearios1.jpg') }}" alt="Balneario 1">
+            </div>
+            <p class="description">Disfruta de un día de relax en uno de nuestros balnearios más populares. Cuenta con aguas termales y vistas espectaculares.</p>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/balnearios2.jpg') }}" alt="Balneario 2">
+            </div>
+            <p class="description">Un lugar perfecto para desconectar y disfrutar de la naturaleza. Las instalaciones son modernas y cuentan con múltiples servicios.</p>
+        </div>
+
+        <!-- Imagen y descripcion -->
+        <div class="image-description">
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/balnearios3.png') }}" alt="Balneario 3">
+            </div>
+            <p class="description">Sumérgete en un ambiente de paz y tranquilidad. Aquí podrás disfrutar de masajes relajantes y tratamientos exclusivos.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
